@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            padding:0;
+            margin: 10;
+        }    
+        body{
+            box-sizing: border-box;
+        }
+        .menu{
+            
+            height: 60px;
+            background-color : purple;
+            text-align: center;
+        }
+        .menu ul
+        {   
+            margin-top: -10px;
+            color: white;
+            list-style: none;
+            display: inline-flex;
+        }
+        .menu ul li
+        {
+            width: 170px;
+            margin: 15px;
+            padding: 15px;
+        }
+        .menu ul li a
+        {
+            text-decoration: none;
+            color: white;
+        }
+        form { 
+            margin: 0 auto; 
+            width:350px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>All Product</title>
+</head>
+<body>
+    {{!-- <h1>hello {{ss.user}} and you are {{ss.role}}</h1> --}}
+    <div class= "menu">
+        <ul>
+            <li><a href="product">All product</a></li>
+            <li><a href="insert">Add product</a></li>
+            {{!-- <li><a href="update">Update product</a></li> --}}
+            </li>
+        </ul>       
+    </div>
+    <br>
+    <form action="/doSearch" method="post">
+        Name <input align="center" type="text" name="txtName" id="">
+        <input type="submit" value="Search">
+    </form>
+
+    <hr>    
+    <table class="table bordered">
+        <thead>
+             <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Made in</th>
+              <th>Delete</th>
+            </tr>
+        </thead>
+        {{#each model}}
+        <tr>
+            <td>{{id}} </td>
+            <td>{{name}}</td>
+            <td>{{price}}</td>
+            <td>{{Madein}}</td>
+            <td><a href="/delete?id={{_id}}">Delete</a></td>
+            <td><a href="/update?id={{_id}} ">Update</a></td>
+        </tr>
+        {{/each}}
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 800px;
+            margin-left: 100px;
+            background-color:#9e8787;         
+        }
+        .login{
+            
+            margin-left: 400px;
+        }
+    </style>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h2 class="login">Login</h2>
+    <form action="/dologin" method="post">
+    {{!-- Name <input type="text" name="txtName" id="">
+    Role <input type="text" name="txtRole" id="">
+    <input type="Submit" value="login"> --}}
+
+    <div class="login">
+      <label for="ID">Name:</label>
+      <input type="text" class="form-control" id="" name="txtName">
+    </div>
+
+    <div class="login">
+      <label for="pass">Password:</label>
+      <input type="text" class="form-control" id=""  name="txtPass">
+    </div>
+    <br>
+    <input class="login" type="Submit" value="login">
+    </form>
+</body>
+</html>

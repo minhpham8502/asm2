@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        *{
+            padding:0;
+            margin: 10;
+        }    
+        body{
+            box-sizing: border-box;
+        }
+        .menu{
+            
+            height: 60px;
+            background-color : purple;
+            text-align: center;
+        }
+        .menu ul
+        {   
+            margin-top: -10px;
+            color: white;
+            list-style: none;
+            display: inline-flex;
+        }
+        .menu ul li
+        {
+            width: 170px;
+            margin: 15px;
+            padding: 15px;
+        }
+        .menu ul li a
+        {
+            text-decoration: none;
+            color: white;
+        }
+        form { 
+            margin: 0 auto; 
+            width:350px;
+        }
+        .h {
+          text-align: center;
+        }
+    </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class= "menu">
+        <ul>
+            <li><a href="product">All product</a></li>
+            <li><a href="insert">Add product</a></li>
+            </li>
+        </ul>       
+    </div>
+    <hr>
+
+    <h2 class="h">Add Product</h2>
+    <form action="/doInsert" method="POST">
+
+    <div class="form-group">
+      <label for="ID">ID:</label>
+      <input type="text" class="form-control" id="" name="txtID">
+    </div>
+
+    <div class="form-group">
+      <label for="Name">Name:</label>
+      <input type="text" class="form-control" id=""  name="txtName">
+    </div>
+
+    <div class="form-group">
+      <label for="Price">Price:</label>
+      <input type="text" class="form-control" id=""  name="txtPrice">
+    </div>
+
+    <div class="form-group">
+      <label for="Madein">Made in:</label>
+      <input type="text" class="form-control" id=""  name="txtMadein">
+    </div>
+
+    <button type="submit" class="btn btn-default" value="Insert">Insert</button>
+    </form>       
+
+</body>
+</html>
