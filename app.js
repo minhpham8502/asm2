@@ -38,13 +38,6 @@ app.post('/doSearch',async (req,res)=>{
     let inputName = req.body.txtName;
     let client= await MongoClient.connect(url);
     let dbo = client.db("asmDB");
-    // let results = await dbo.collection("Student").find({name:inputName}).toArray();
-    // res.render('allStudent',{model:results});
-
-    // let results =await dbo.collection("Student").find({name: new RegExp(inputName)}).toArray();
-    // res.render('allStudent',{model:results});
-
-    // kiem tra gan dung k phan biet chu hoa chu thuong
     let results =await dbo.collection("Product").find({name: new RegExp(inputName,'i')}).toArray();
     res.render('allProduct',{model:results});
 })
@@ -61,23 +54,26 @@ app.get('/insert',async function(req,res){
 })
 
 app.post('/doInsert',async (req,res)=>{
-    let inputID = req.body.txtID
+    let inputIdproduct = req.body.txtIdproduct
     let inputName = req.body.txtName;
     let inputPrice = req.body.txtPrice;
-    let inputMadein= req.body.txtMadein;
-    let newProduct= {id: inputID, name : inputName, price :inputPrice, Madein: inputMadein};
+    let inputAmount= req.body.txtAmount;
+    let newProduct= {idproduct: inputIdproduct, name : inputName, price :inputPrice, amount: inputAmount};
 
-    if(inputName.trim().length ==0){
-        let modelError1={nameError:"ten k de trang"};
+    if(inputIdproduct.trim().length ==0){
+        let modelError1={IdproductError:"Please input Id"};
         res.render('insert',{model:modelError1}); 
-    }else if(inputID.trim().length ==0){
-        let modelError2={IDError:"ID k hop le"};
-        res.render('insert',{model:modelError2});     
+
+    }else if(inputName.trim().length ==0){
+        let modelError2={nameError:"Please input Name"};
+        res.render('insert',{model:modelError2});    
+
     }else if(inputPrice.trim().length ==0){
-        let modelError3={priceError:"ID k hop le"};
+        let modelError3={priceError:"Please input Price"};
         res.render('insert',{model:modelError3});
-    }else if(inputMadein.trim().length ==0){
-        let modelError4={madeinError:"ID k hop le"};
+
+    }else if(inputAmount.trim().length ==0){
+        let modelError4={madeinError:"Please input Made in"};
         res.render('insert',{model:modelError4})    
      } else
     {
@@ -104,15 +100,25 @@ app.get('/login',(req,res)=>{
     res.render('login');
 })
 app.post('/dologin',(req,res)=>{
-    let name =req.body.txtName;
-    let pass =req.body.txtPass;
-    //tao session
-    req.session.User ={
-        website: 'mywebsite.com',
-        user:name,
-        pass:pass
+    var username = req.body.txtName;
+    var password = req.body.txtPass;
+
+    if(username !== "admin"){
+        let modelError1={adminError:"Username or password is incorrect"};
+        res.render('login',{model:modelError1}); 
+        return;
+    }else{
+        if(password !== "123456"){
+            res.render('login', {error: "Username or password is incorrect"});
+            return;
+        }
     }
-    res.redirect('/product');
+    res.redirect("/product");
+})
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('login');
+    
 })
 
 app.get('/update',async function(req,res){
@@ -127,18 +133,19 @@ app.get('/update',async function(req,res){
 })
 
 
-app.post('/doUpdate',async (req,res)=>{
+app.post('/doupdate',async (req,res)=>{
     let inputId = req.body.txtId;
+    let inputIdproduct = req.body.txtIdproduct;
     let inputName = req.body.txtName;
     let inputPrice = req.body.txtPrice;
-    let inputMadein = req.body.txtMadein;
+    let inputAmount = req.body.txtAmount;
     
 
     var ObjectID = require('mongodb').ObjectID;
     let condition ={ _id : ObjectID(inputId)};
-    let Change ={$set : {id: inputId, name: inputName , price: inputPrice , Madein: inputMadein}};
+    let Change ={$set : {idproduct: inputIdproduct,name: inputName , price: inputPrice , amount: inputAmount}};
     let client = await MongoClient.connect(url);
-    let dbo = client.db("asmBD");
+    let dbo = client.db("asmDB");
     await dbo.collection("Product").updateOne(condition,Change);
     res.redirect('/product');
 })

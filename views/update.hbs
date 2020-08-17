@@ -13,9 +13,10 @@
         <thead>
              <tr>
               <th>Id</th>
+              <th>Id product</th>
               <th>Name</th>
+              <th>Amount</th>
               <th>Price</th>
-              <th>Made in</th>
               <th>Update</th>
             </tr>
         </thead>
@@ -23,10 +24,11 @@
         <form action="/doupdate" method="post">
         {{#each model}}
         <tr>
-            <td><input type="text" value= "{{id}}" name = "txtId" id=""></td>
+            <td><input type="text" value= "{{_id}}" name = "txtId" id=""></td>
+            <td><input type="text" value= "{{idproduct}}" name = "txtIdproduct" id=""></td>
             <td><input type="text" value= "{{name}}" name = "txtName" id=""></td>
+            <td><input type="text" value= "{{amount}}" name = "txtAmount" id=""></td>
             <td><input type="text" value= "{{price}}" name = "txtPrice" id="" ></td>
-            <td><input type="text" value= "{{Madein}}" name = "txtMadein" id=""></td>
             <td><input type="submit" value="Confirm"></td>
         </tr>
         {{/each}}

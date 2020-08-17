@@ -20,20 +20,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h2 class="login">Login</h2>
+    <h2 class="login">Login for manager</h2>
     <form action="/dologin" method="post">
-    {{!-- Name <input type="text" name="txtName" id="">
-    Role <input type="text" name="txtRole" id="">
-    <input type="Submit" value="login"> --}}
-
     <div class="login">
       <label for="ID">Name:</label>
       <input type="text" class="form-control" id="" name="txtName">
+      <th><label for="" style="color:red;">{{model.adminError}}</label></th>   
     </div>
 
     <div class="login">
       <label for="pass">Password:</label>
-      <input type="text" class="form-control" id=""  name="txtPass">
+      <input type="password" class="form-control" id=""  name="txtPass">
+      <th><label for="" style="color:red;">{{model.passError}}</label></th>   
     </div>
     <br>
     <input class="login" type="Submit" value="login">
