@@ -2,14 +2,6 @@ const express = require('express');
 const engines = require('consolidate');
 const app = express();
 
-
-const session = require('express-session');
-app.use(session({
-    resave: true, 
-    saveUninitialized: true, 
-    secret: 'somesecret', 
-    cookie: { maxAge: 60000 }}));
-
 var bodyParser = require("body-parser");
 const { EDESTADDRREQ } = require('constants');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,23 +9,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var publicDir = require('path').join(__dirname,'/public');
 app.use(express.static(publicDir));
 
-//npm i handlebars consolidate --save
 app.engine('hbs',engines.handlebars);
 app.set('views','./views');
 app.set('view engine','hbs');
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://minhpham852000:Quangminh2000@cluster0.46ara.mongodb.net/test";
-//localhost:3000/student
+
 app.get('/product',async function(req,res){
     let client= await MongoClient.connect(url);
     let dbo = client.db("asmDB");
     let results = await dbo.collection("Product").find({}).toArray();
-    // doc session
+
     res.render('allProduct',{model:results,ss:req.session.User});
 })
 
-//user submit form
 app.post('/doSearch',async (req,res)=>{
     let inputName = req.body.txtName;
     let client= await MongoClient.connect(url);
@@ -49,7 +39,6 @@ app.get('/insert',async function(req,res){
     let client= await MongoClient.connect(url);
     let dbo = client.db("asmDB");
     let results = await dbo.collection("Product").find({}).toArray();
-    // doc session
     res.render('product');
 })
 
@@ -81,7 +70,6 @@ app.post('/doInsert',async (req,res)=>{
         let client= await MongoClient.connect(url);
         let dbo = client.db("asmDB");
         await dbo.collection("Product").insertOne(newProduct);
-        
         res.redirect('/product');
     }
 })
@@ -97,31 +85,6 @@ app.get('/delete',async (req,res)=>{
     res.redirect('/product');    
 })
 
-//npm install express-session
-app.get('/',(req,res)=>{
-    res.render('login');
-})
-app.post('/dologin',(req,res)=>{
-    var username = req.body.txtName;
-    var password = req.body.txtPass;
-
-    if(username !== "admin"){
-        let modelError1={adminError:"Username or password is incorrect"};
-        res.render('login',{model:modelError1}); 
-        return false;
-    }else if(password !== "123456"){
-            res.render('login', {passError: "Username or password is incorrect"});
-            return false;
-        }
-    
-    res.redirect("/product");
-})
-app.get('/logout',(req,res) => {
-    req.session.destroy();
-    res.redirect('login');
-    
-})
-
 app.get('/update',async function(req,res){
     let inputId = req.query.id;
     let client= await MongoClient.connect(url);
@@ -129,10 +92,8 @@ app.get('/update',async function(req,res){
     var ObjectID = require('mongodb').ObjectID;
     let condition = {"_id" : ObjectID(inputId)};
     let results = await dbo.collection("Product").find(condition).toArray();
-    
     res.render('update',{model:results});
 })
-
 
 app.post('/doupdate',async (req,res)=>{
     let inputId = req.body.txtId;
@@ -141,7 +102,6 @@ app.post('/doupdate',async (req,res)=>{
     let inputPrice = req.body.txtPrice;
     let inputAmount = req.body.txtAmount;
     
-
     var ObjectID = require('mongodb').ObjectID;
     let condition ={ _id : ObjectID(inputId)};
     let Change ={$set : {idproduct: inputIdproduct,name: inputName , price: inputPrice , amount: inputAmount}};
