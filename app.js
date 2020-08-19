@@ -3,7 +3,6 @@ const engines = require('consolidate');
 const app = express();
 
 var bodyParser = require("body-parser");
-const { EDESTADDRREQ } = require('constants');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var publicDir = require('path').join(__dirname,'/public');
@@ -20,8 +19,7 @@ app.get('/product',async function(req,res){
     let client= await MongoClient.connect(url);
     let dbo = client.db("asmDB");
     let results = await dbo.collection("Product").find({}).toArray();
-
-    res.render('allProduct',{model:results,ss:req.session.User});
+    res.render('allProduct',{model:results});
 })
 
 app.post('/doSearch',async (req,res)=>{
