@@ -6,34 +6,74 @@
     <title>Document</title>
     <style>
         body{
-            width: 800px;
-            margin-left: 100px;
-            background-color:#9e8787;         
-        }
-        .login{
-            
-            margin-left: 400px;
-        }
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #34495e;
+}
+.box{
+  width: 300px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #191919;
+  text-align: center;
+}
+.box h1{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.box input[type = "text"],.box input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+  width: 280px;
+  border-color: #2ecc71;
+}
+.box input[type = "submit"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #2ecc71;
+  padding: 14px 40px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.box input[type = "submit"]:hover{
+  background: #2ecc71;
+}
+
     </style>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h2 class="login">Login for manager</h2>
-    <form action="/dologin" method="post">
-    <div class="login">
-      <label for="ID">Name:</label>
-      <input type="text" class="form-control" id="" name="txtName">
-      <th><label for="" style="color:red;">{{model.adminError}}</label></th>   
-    </div>
 
-    <div class="login">
-      <label for="pass">Password:</label>
-      <input type="password" class="form-control" id=""  name="txtPass">
+    <form class="box" action="/doLogin" method="post">
+      <h1>Login for manager</h1>
+      <label for="ID" style="color: white;">Name:</label>
+      <input type="text" class="form-control" id="Name" name="txtName">
+      <th><label for="" style="color:red;">{{model.adminError}}</label></th>   
+      <label for="pass"  style="color: white;">Password:</label>
+      <input type="password" class="form-control" id="Pass"  name="txtPass">
       <th><label for="" style="color:red;">{{model.passError}}</label></th>   
-    </div>
-    <br>
     <input class="login" type="Submit" value="login">
     </form>
 </body>

@@ -54,7 +54,7 @@ app.get('/insert',async function(req,res){
 })
 
 app.post('/doInsert',async (req,res)=>{
-    let inputIdproduct = req.body.txtIdproduct
+    let inputIdproduct = req.body.txtIdproduct;
     let inputName = req.body.txtName;
     let inputPrice = req.body.txtPrice;
     let inputAmount= req.body.txtAmount;
@@ -75,11 +75,13 @@ app.post('/doInsert',async (req,res)=>{
     }else if(inputAmount.trim().length ==0){
         let modelError4={madeinError:"Please input Made in"};
         res.render('insert',{model:modelError4})    
-     } else
+    }
+    else
     {
         let client= await MongoClient.connect(url);
         let dbo = client.db("asmDB");
         await dbo.collection("Product").insertOne(newProduct);
+        
         res.redirect('/product');
     }
 })
@@ -96,7 +98,7 @@ app.get('/delete',async (req,res)=>{
 })
 
 //npm install express-session
-app.get('/login',(req,res)=>{
+app.get('/',(req,res)=>{
     res.render('login');
 })
 app.post('/dologin',(req,res)=>{
@@ -106,13 +108,12 @@ app.post('/dologin',(req,res)=>{
     if(username !== "admin"){
         let modelError1={adminError:"Username or password is incorrect"};
         res.render('login',{model:modelError1}); 
-        return;
-    }else{
-        if(password !== "123456"){
-            res.render('login', {error: "Username or password is incorrect"});
-            return;
+        return false;
+    }else if(password !== "123456"){
+            res.render('login', {passError: "Username or password is incorrect"});
+            return false;
         }
-    }
+    
     res.redirect("/product");
 })
 app.get('/logout',(req,res) => {
